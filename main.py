@@ -1,3 +1,28 @@
+#pip install SpeechRecognition
+#pip install pyaudio
+#pip install pyttsx3
+#pip install wikipedia
+#pip install chatterbot
+#or
+#pip install https://github.com/RaSan147/ChatterBot_update/archive/refs/heads/master.zip
+#python -m spacy download en_core_web_sm
+#pip3 install pyyaml
+#pip install --upgrade PyYaml
+
+#pip install chatterbot_corpus
+#pip instal pygame
+#pip install playsound
+#pip install selenium==4.9.0
+#dowload https://chromedriver.storage.googleapis.com/index.html?path=114.0.5735.90/
+#have git installed
+#git clone https://github.com/Michelangelo27/chatgpt_selenium_automation.git
+#muta apoi folderul handler din chatgpt_selenium_automation
+#rescrie chatgpt_selenium_automation
+#pip install seleniumbase
+#follow these steps: https://github.com/Simatwa/python-tgpt
+#pip install python-tgpt
+#pip install g4f==0.1.9.3
+
 import speech_recognition as sr
 import pyttsx3
 import webbrowser
@@ -7,7 +32,11 @@ import tkinter
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 from tkinter import *
+from WebChatGPT import ChatGPT
+import pytgpt.phind as phind
 
+
+bot = phind.PHIND()
 
 
 for index, name in enumerate(sr.Microphone.list_microphone_names()):
@@ -15,7 +44,7 @@ for index, name in enumerate(sr.Microphone.list_microphone_names()):
 
 mic = int(input("Choose a microphone: "))
 wake_word = "Jarvis"
-
+path_to_cookies = "D:\chat.openai.com.cookies.json" #path for the cookies
 engine = pyttsx3.init()
 engine.setProperty('voice', 3)
 
@@ -83,7 +112,7 @@ while True:
                 try:
                     # Convert speech to text
                     command = r.recognize_google(audio)
-                    print("You said: " + command)
+                    print("H: " + command)
                     if "quit" in command and "Jarvis" in command or "sleep" in command and "Jarvis" in command:
                         ok = False
                         speak("Going into sleep mode")
@@ -110,6 +139,9 @@ while True:
                     
                         
                         """
+                        response = bot.chat(command)
+                        print("R: " + response)
+                        speak(response)
                         #Send command to the chatbot
                         # response = chatbotv2.get_response(command)
                         # chatgpt.send_prompt_to_chatgpt(command)
