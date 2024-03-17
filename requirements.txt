@@ -19,3 +19,9 @@
 #muta apoi folderul handler din chatgpt_selenium_automation
 #rescrie chatgpt_selenium_automation
 #pip install seleniumbase
+#follow these steps: https://github.com/Simatwa/python-tgpt
+#pip install python-tgpt
+#pip install g4f==0.1.9.3
+#install https://pimylifeup.com/raspberry-pi-vlc/
+#pip3 install youtube-search-python
+#pip install pafy
