@@ -22,49 +22,63 @@
 #follow these steps: https://github.com/Simatwa/python-tgpt
 #pip install python-tgpt
 #pip install g4f==0.1.9.3
-
+#install https://pimylifeup.com/raspberry-pi-vlc/
+#pip3 install youtube-search-python
+#pip install yt-dlp
+from youtubesearchpython import VideosSearch
+import subprocess
+import os
+from playsound import playsound
+import os
 import speech_recognition as sr
 import pyttsx3
-import webbrowser
 import datetime
-import wikipedia
-import tkinter
-from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
-from tkinter import *
-from WebChatGPT import ChatGPT
 import pytgpt.phind as phind
 
+# elevenlabs = "fea71e702f8f3bf55620937499b5730c"
+# def text_to_speech(text, voice_id, api_key):
+#     url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
+#     headers = {
+#         "xi-api-key": "e6544386341418fa400345857ec819cc",
+#         "Content-Type": "application/json",
+#         "accept": "audio/mpeg"
+#     }
+#     data = {
+#         "text": text,
+#         "voice_settings": {
+#             "stability": 0,
+#             "similarity_boost": 0
+#         }
+#     }
+#     response = requests.post(url, headers=headers, json=data)
+#     with tempfile.NamedTemporaryFile(delete=False) as f:
+#         f.write(response.content)
+#         filepath = f.name
+#     return filepath
+
+def delete_temp_file(filepath):
+    os.remove(filepath)
 
 bot = phind.PHIND()
-
-
+basic_commands_file  = open("comands.txt", "r")
+basic_commands = basic_commands_file.read()
+bot.chat(basic_commands)
+#create a set of commands for the jarvis
 for index, name in enumerate(sr.Microphone.list_microphone_names()):
     print(f'{index}, {name}')
 
 mic = int(input("Choose a microphone: "))
+
+
 wake_word = "Jarvis"
-path_to_cookies = "D:\chat.openai.com.cookies.json" #path for the cookies
 engine = pyttsx3.init()
 engine.setProperty('voice', 3)
 
-chatbotv2 = ChatBot('jarvis2vs')
-
-# Uncomment the next lines for training the bot
-
-# Create a new trainer for the chatbot
-# trainer = ChatterBotCorpusTrainer(chatbotv2)
-
-# Train the chatbot based on the english corpus
-# trainer.train(
-#     "chatterbot.corpus.english.greetings",
-#     "chatterbot.corpus.english.conversations"
-# )
-# Get a response to an input statement
-# print(chatbotv2.get_response("Hello?"))
 
 
 
+
+os.add_dll_directory(os.getcwd())
 def speak(text):
     engine.say(text)
     engine.runAndWait()
@@ -85,7 +99,37 @@ def change_voice():
             if "yes" in command:
                 break
     speak("I hope you like my new voice!")
+def downloadaudio(link):
 
+    command1 = "yt-dlp -x " + link + " --restrict-filenames"
+
+    process = subprocess.Popen(command1, shell=True)
+    process.wait()
+    folder_path = os.getcwd()
+    files = os.listdir(folder_path)
+    print(files)
+    for file in files:
+        if "output.mp3" in file:
+            try:
+                os.remove(file)
+            except:
+                print('all is good')
+    for file in files:
+        print(file)
+        if ".opus" in file:
+            try:
+                command2 = "ffmpeg -i " + file + " output.mp3"
+                os.system(command2)
+                os.remove(file)
+            except:
+                print('all is good')
+
+
+    os.system(command2)
+
+def playsong():
+    playsound('output.mp3')
+    os.remove('output.mp3')
 
 # Set up speech recognition
 r = sr.Recognizer()
@@ -149,6 +193,20 @@ while True:
                         #
                         # print(response)
                         # speak(response)
+                        #[{'type': 'video', 'id': 'iyLdoQGBchQ', 'title': 'Kaoma - Lambada (Official Video) 1989 HD', 'publishedTime': '9 years ago', 'duration': '3:27', 'viewCount': {'text': '584,132,476 views', 'short': '584M views'}, 'thumbnails': [{'url': 'https://i.ytimg.com/vi/iyLdoQGBchQ/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAXupRMu-PJDbvhkK2P4-aBdYwAew', 'width': 480, 'height': 270}], 'richThumbnail': {'url': 'https://i.ytimg.com/an_webp/iyLdoQGBchQ/mqdefault_6s.webp?du=3000&sqp=CKjE2q8G&rs=AOn4CLApOqMPehQD-IZoUX5FqYisa25bcQ', 'width': 320, 'height': 180}, 'descriptionSnippet': [{'text': 'Lyrics : Chorando se foi quem um dia só me fez chorar Chorando se foi quem um dia só me fez chorar Chorando estará ao\xa0...'}], 'channel': {'name': 'Club Music 80', 'id': 'UCvSLvgYtFw_9Ubdjk74OqbA', 'thumbnails': [{'url': 'https://yt3.ggpht.com/95zgG2eEtF9lDw_5z4DMeMSf7W0Sh7TJMQqVW5egukyjUe_qLxW8MU1TTZej7yXIoiCdekGM=s68-c-k-c0x00ffffff-no-rj', 'width': 68, 'height': 68}], 'link': 'https://www.youtube.com/channel/UCvSLvgYtFw_9Ubdjk74OqbA'}, 'accessibility': {'title': 'Kaoma - Lambada (Official Video) 1989 HD by Club Music 80 584,132,476 views 9 years ago 3 minutes, 27 seconds', 'duration': '3 minutes, 27 seconds'}, 'link': 'https://www.youtube.com/watch?v=iyLdoQGBchQ', 'shelfTitle': None}]
+
+                        if "< Play" in response:
+                            first_quote_index  = response.find('"')
+                            second_quote_index = response.find('"', first_quote_index + 1)
+                            melody_title = response[first_quote_index + 1:second_quote_index]
+                            print("R: Playing : " + melody_title)
+                            speak("Playing : " + melody_title)
+                            videosSearch = VideosSearch(melody_title, limit=1)
+                            melody_link = videosSearch.result()['result'][0]['link']
+                            # melody_link = videosSearch.result()['link']
+                            print(melody_link)
+                            downloadaudio(melody_link)
+                            playsong()
 
 
                 except sr.UnknownValueError:
