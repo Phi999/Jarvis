@@ -24,4 +24,4 @@
 #pip install g4f==0.1.9.3
 #install https://pimylifeup.com/raspberry-pi-vlc/
 #pip3 install youtube-search-python
-#pip install pafy
+#pip install yt-dlp
