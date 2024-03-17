@@ -188,13 +188,7 @@ while True:
                         response = bot.chat(command)
                         print("R: " + response)
                         speak(response)
-                        # Send command to the chatbot
-                        # response = chatbotv2.get_response(command)
-                        # chatgpt.send_prompt_to_chatgpt(command)
-                        # response = chatgpt.return_last_response()
-                        #
-                        # print(response)
-                        # speak(response)
+
                         # [{'type': 'video', 'id': 'iyLdoQGBchQ', 'title': 'Kaoma - Lambada (Official Video) 1989 HD', 'publishedTime': '9 years ago', 'duration': '3:27', 'viewCount': {'text': '584,132,476 views', 'short': '584M views'}, 'thumbnails': [{'url': 'https://i.ytimg.com/vi/iyLdoQGBchQ/hqdefault.jpg?sqp=-oaymwEcCOADEI4CSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAXupRMu-PJDbvhkK2P4-aBdYwAew', 'width': 480, 'height': 270}], 'richThumbnail': {'url': 'https://i.ytimg.com/an_webp/iyLdoQGBchQ/mqdefault_6s.webp?du=3000&sqp=CKjE2q8G&rs=AOn4CLApOqMPehQD-IZoUX5FqYisa25bcQ', 'width': 320, 'height': 180}, 'descriptionSnippet': [{'text': 'Lyrics : Chorando se foi quem um dia só me fez chorar Chorando se foi quem um dia só me fez chorar Chorando estará ao\xa0...'}], 'channel': {'name': 'Club Music 80', 'id': 'UCvSLvgYtFw_9Ubdjk74OqbA', 'thumbnails': [{'url': 'https://yt3.ggpht.com/95zgG2eEtF9lDw_5z4DMeMSf7W0Sh7TJMQqVW5egukyjUe_qLxW8MU1TTZej7yXIoiCdekGM=s68-c-k-c0x00ffffff-no-rj', 'width': 68, 'height': 68}], 'link': 'https://www.youtube.com/channel/UCvSLvgYtFw_9Ubdjk74OqbA'}, 'accessibility': {'title': 'Kaoma - Lambada (Official Video) 1989 HD by Club Music 80 584,132,476 views 9 years ago 3 minutes, 27 seconds', 'duration': '3 minutes, 27 seconds'}, 'link': 'https://www.youtube.com/watch?v=iyLdoQGBchQ', 'shelfTitle': None}]
 
                         if "< Play" in response:
