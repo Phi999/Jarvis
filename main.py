@@ -60,7 +60,7 @@ def delete_temp_file(filepath):
     os.remove(filepath)
 
 bot = phind.PHIND()
-basic_commands_file  = open("comands.txt", "r")
+basic_commands_file  = open("commands.txt", "r")
 basic_commands = basic_commands_file.read()
 bot.chat(basic_commands)
 #create a set of commands for the jarvis
